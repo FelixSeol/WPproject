@@ -26,36 +26,37 @@
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
                 <li class="sidebar-brand">
-                    <a href="#">
-                        Soolpectrum
+                    <a href="./index.html">
+                        <img src="./src/logo.png">
                     </a>
                 </li>
                 <li>
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
+<!--
+                  echo '<form action="./process.php?mode=insert" method="POST">';
+                	echo '<br />';
+                	for($i = 1; $i < count($tableList); $i++){
+                		if(!strcmp(substr($tableType[$i],0,7),'varchar')){
+                			echo '<p>'.$tableList[$i].' : '.'<input type="text" name="'.$tableList[$i].'" placeholder="'.$tableList[$i].'"></p>';
+                		}else if(!strcmp(substr($tableType[$i],0,4),'text')){
+                			echo '<p>'.$tableList[$i].' : '.'<textarea name="'.$tableList[$i].'" id="" cols="50" rows="10"></textarea></p>';
+                		}else{}
+                	}
+
+                	echo '<p><input type="submit" /></p>';-->
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Alcohol info <span class="caret"></span></a>
                   <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                    <li><a href="#">Action</a></li>
-                    <li><a href="#">Another action</a></li>
-                    <li><a href="#">Something else here</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">Separated link</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">One more separated link</a></li>
+                    <li><a href="./pages/alcohol.html#row-whisky">Whisky</li>
+                    <li><a href="./pages/alcohol.html#row-vodka">Vodka</a></li>
+                    <li><a href="./pages/alcohol.html#row-rum">Rum</a></li>
+                    <li><a href="./pages/alcohol.html#row-tequila">Tequila</a></li>
+                    <li><a href="./pages/alcohol.html#row-gin">Gin</a></li>
                   </ul>
                 </li>
                 <li>
-                    <a href="#">Shortcuts</a>
+                    <a href="#">Sellers</a>
                 </li>
                 <li>
-                    <a href="#">Overview</a>
-                </li>
-                <li>
-                    <a href="#">Events</a>
-                </li>
-                <li>
-                    <a href="#">About</a>
-                </li>
-                <li>
-                    <a href="#">Services</a>
+                    <a href="#">Boards</a>
                 </li>
                 <li>
                     <a href="#">Contact</a>
@@ -67,7 +68,7 @@
         <!-- Page Content -->
         <div id="page-content-wrapper">
             <div class="container-fluid">
-                <h1>Simple Sidebar</h1>
+                <h1>Main Page</h1>
                 <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens, the page content will be pushed off canvas.</p>
                 <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>
                 <a href="#menu-toggle" class="btn btn-secondary" id="menu-toggle">Toggle Menu</a>
