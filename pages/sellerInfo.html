@@ -18,12 +18,12 @@
 
     <!-- Custom styles for this template -->
     <link href="../css/simple-sidebar.css" rel="stylesheet">
+    <link href="../css/table.css" rel="stylesheet">
 	<script type="text/javascript">
 	        try {
 	            document.execCommand('BackgroundImageCache', false, true);
 	        } catch (e) {}
 	</script>
-	<script type="text/javascript" src="http://openapi.map.naver.com/openapi/v2/maps.js?clientId=seNMcLkcOY30gHXla7a_"></script>
 </head>
 
 <body>
@@ -59,70 +59,29 @@
             </ul>
         </div>
         <!-- /#sidebar-wrapper -->
-<div id="testMap" style="border:1px solid #000; width:500px; height:400px; margin:20px;"></div>
-    <script type="text/javascript">
 
-        $(document).ready(function() {
-
-            var data = {
-                "div" : "start"
-            };
-
-            $.ajax({
-                type:"POST",
-                data: data,
-                url : "../php/sellerDatas.php",
-                success:function(data){
-                    console.log(data);
-                    var json = JSON.parse(data);
-                    var i = 0;
-                    oMap = new nhn.api.map.Map('testMap', {
-                    point: oPoint,
-                    zoom: 10,
-                    enableWheelZoom: true,
-                    enableDragPan: true,
-                    enableDblClickZoom: false,
-                    mapMode: 0,
-                    activateTrafficMap: false,
-                    activateBicycleMap: false,
-                    minMaxLevel: [1, 14],
-                    size: new nhn.api.map.Size(500, 400)
-                    });
-                    
-                    for(i=0; i<json.length; i++) {
-                        var row = json[i];
-                        var long = row['lon'];
-                        var lat = row['lat'];
-                        var marker = new nhn.api.map.Marker({
-                            position : new nhn.api.map.LatLng(lat, long),
-                            map : oMap
-                        });
-                      //  var oPoint = new nhn.api.map.LatLng(long, lat);
-                        nhn.api.map.setDefaultPoint('LatLng');
-                        
-                    }
-
-                }
-
-
-            });
-        });
-
-    </script>
         <!-- Page Content -->
-            <div id="page-content-wrapper">
-            <div class="container-fluid">
+        <div id="page-content-wrapper">
+            <div>
                 <h1>Sellers</h1>
             </div>
-				
-            <div class="row" id="row-whisky">
-              <div class="col-md-6">
-                테이블
-              </div>
-              <div class="col-md-6">
-                <div class="figure">
-                </div>
-              </div>
+
+            <script type="text/javascript" src="http://openapi.map.naver.com/openapi/v2/maps.js?clientId=seNMcLkcOY30gHXla7a_"></script>
+
+			<div id="Map" style="border:1px solid #000; width:50rem; height:30rem; margin: 5rem; margin-auto;">
+            </div>
+
+            <div id="row-whisky">
+                <table id="list">
+                    <thead>
+                        <th>점포명</th>
+                        <th>연락처</th>
+                        <th>위치</th>
+                    </thead>
+                    <tbody id = "body">
+                        
+                    </tbody>
+                </table>
             </div>
         </div>
         <!-- /#page-content-wrapper -->
@@ -135,58 +94,123 @@
     <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Menu Toggle Script -->
-    <script>
-
-    </script>
-
-    <div id="testMap" style="border:1px solid #000; width:500px; height:400px; margin:20px;"></div>
     <script type="text/javascript">
-        var oPoint = new nhn.api.map.LatLng(37.5010226, 127.0396037);
-        nhn.api.map.setDefaultPoint('LatLng');
-        oMap = new nhn.api.map.Map('testMap', {
-        point: oPoint,
-        zoom: 10,
-        enableWheelZoom: true,
-        enableDragPan: true,
-        enableDblClickZoom: false,
-        mapMode: 0,
-        activateTrafficMap: false,
-        activateBicycleMap: false,
-        minMaxLevel: [1, 14],
-        size: new nhn.api.map.Size(500, 400)
-    });
-    	$(document).ready(function() {
+        
+        var map = new nhn.api.map.Map('Map', {
+            point : new nhn.api.map.LatLng(37.5037, 126.9570207),
+            zoom : 7,
+            enableWheelZoom : true
 
-    		var data = {
-    			"div" : "start"
-    		};
+        });
 
-    		$.ajax({
-    			type:"POST",
-    			data: data,
-    			url : "../php/sellerDatas.php",
-    			success:function(data){
+        var markerIcon = new nhn.api.map.Icon('./../src/markerIcon.png', new nhn.api.map.Size(51, 69), new nhn.api.map.Size(16, 46));
+        var slider = new nhn.api.map.ZoomControl();
+        var mapInfo = new nhn.api.map.InfoWindow();
+        var label = new nhn.api.map.MarkerLabel();
+        var json;
+        map.addControl(slider);
+        map.addOverlay(mapInfo);
+
+        $(document).ready(function() {
+            var list = {};
+            var data = {
+                "div" : "start"
+            };
+
+            $.ajax({
+                type:"POST",
+                data: data,
+                url : "../php/sellerDatas.php",
+                success:function(data){
                     console.log(data);
-    				var json = JSON.parse(data);
-    				var i = 0;
-    				for(i=0; i<json.length; i++) {
-    					var row = json[i];
-    					var long = row['lon'];
-    					var lat = row['lat'];
-    					var marker = new nhn.api.map.Marker({
-    						position : new nhn.api.map.LatLng(lat, long),
-    						map : oMap
-    					});
-    				}
+                    json = JSON.parse(data);
+                    var i = 0;
+                    for(i=0; i<json.length; i++) {
+                        var row = json[i];
+                        var id = row['sellerid'];
+                        var name = row['seller'];
+                        var location = row['sellerlocation'];
+                        var contact = row['sellercontact'];
+                        var long = row['sellerlong'];
+                        var lat = row['sellerlat'];
 
-    			}
+                        var body = document.getElementById('body');
+                        var row = body.insertRow(body.rows.length);
+                        var cellName = row.insertCell(0);
+                        var cellContact = row.insertCell(1);
+                        var cellLocation = row.insertCell(2);
 
+                        cellName.innerHTML = name;
+                        cellContact.innerHTML = contact;
+                        cellLocation.innerHTML = location;
 
-    		});
-    	});
+                        var marker = new nhn.api.map.Marker(markerIcon, {
+                            point : new nhn.api.map.LatLng(lat, long),
+                            title : name
+                        });
 
+                        map.addOverlay(marker);
+                        map.addOverlay(label);
+                    }
+                },
+                complete:function() {
+                    mapInfo.attach('changeVisible', function (customEvent){
+
+                        if(customEvent.visible)
+                            label.setVisible(false);
+                    });
+
+                    map.attach('mouseenter', function (customEvent){
+                        var target = customEvent.target;
+
+                        if(target instanceof nhn.api.map.Marker){
+                            var marker = target;
+                            label.setVisible(true, marker);
+                        }
+                    });
+                    map.attach('mouseleave', function (customEvent){
+                         var target = customEvent.target;
+                        if(target instanceof nhn.api.map.Marker)
+                            label.setVisible(false);
+                    });
+                    map.attach('click', function(customEvent){
+                        var point = customEvent.point;
+                        var target = customEvent.target;
+                        mapInfo.setVisible(false);
+
+                        if(target instanceof nhn.api.map.Marker){
+                            var point = target.getPoint();
+                            var i = 0;
+                            var name;
+                            var location;
+                            var contact;
+                            var long;
+                            var lat;
+                            for(i=0; i<json.length; i++) {
+                                var row = json[i];
+                                var x = row['sellerlong'];
+                                var y = row['sellerlat'];
+                                if(x==point.x && y==point.y){
+                                    name = row['seller'];
+                                    location = row['sellerlocation'];
+                                    contact = row['sellercontact'];
+                                    break;
+                                }
+                            }
+
+                            mapInfo.setContent('<DIV style="border-top:1px solid; border-bottom:2px groove black; border-left:1px solid; border-right:2px groove black; margin-bottom:1px; color:black; background-color:white; width:auto; height:auto;">' + '<span style="color: #000000 !important; display: inline-block; font-size: 12px !important; font-weight: bold !important; letter-spacing: -1px !important; white-space: nowrap !important; padding: 2px 2px 2px 2px !important">' + name + '<br /> ' + location + '<br />' + contact +'<span></div>');
+                            mapInfo.setPoint(target.getPoint());
+                            mapInfo.setVisible(true);
+                            mapInfo.setPosition({right:15, top:30});
+                            mapInfo.autoPosition();
+                            return;
+                        }
+                    })
+                }
+            });
+            
+        });
+                   
     </script>
-
 </body>
-
 </html>

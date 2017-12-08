@@ -3,7 +3,7 @@
 $host = "localhost";
 $username = "root";
 $password = "frog032";
-$dbname = "temp";
+$dbname = "soolpectrum";
 
 $conn = new mysqli($host, $username, $password, $dbname);
 
