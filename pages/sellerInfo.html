@@ -51,20 +51,64 @@
                     <a href="./sellerInfo.html">Sellers</a>
                 </li>
                 <li>
-                    <a href="#">Boards</a>
+                    <a href="./board.html">Boards</a>
                 </li>
                 <li>
-                    <a href="#">Contact</a>
+                    <a href="./contact.html">Contact</a>
                 </li>
             </ul>
         </div>
         <!-- /#sidebar-wrapper -->
+
+
+            $.ajax({
+                type:"POST",
+                data: data,
+                url : "../php/sellerDatas.php",
+                success:function(data){
+                    console.log(data);
+                    var json = JSON.parse(data);
+                    var i = 0;
+                    oMap = new nhn.api.map.Map('testMap', {
+                    point: oPoint,
+                    zoom: 10,
+                    enableWheelZoom: true,
+                    enableDragPan: true,
+                    enableDblClickZoom: false,
+                    mapMode: 0,
+                    activateTrafficMap: false,
+                    activateBicycleMap: false,
+                    minMaxLevel: [1, 14],
+                    size: new nhn.api.map.Size(500, 400)
+                    });
+
+                    for(i=0; i<json.length; i++) {
+                        var row = json[i];
+                        var long = row['lon'];
+                        var lat = row['lat'];
+                        var marker = new nhn.api.map.Marker({
+                            position : new nhn.api.map.LatLng(lat, long),
+                            map : oMap
+                        });
+                      //  var oPoint = new nhn.api.map.LatLng(long, lat);
+                        nhn.api.map.setDefaultPoint('LatLng');
+
+                    }
+
+                }
+
+
+            });
+        });
+
+    </script>
 
         <!-- Page Content -->
         <div id="page-content-wrapper">
             <div>
                 <h1>Sellers</h1>
             </div>
+
 
             <script type="text/javascript" src="http://openapi.map.naver.com/openapi/v2/maps.js?clientId=seNMcLkcOY30gHXla7a_"></script>
 
@@ -82,6 +126,16 @@
                         
                     </tbody>
                 </table>
+
+            <div class="row" id="row-whisky">
+              <div class="col-md-6">
+                테이블
+              </div>
+              <div class="col-md-6">
+                <div class="figure">
+                </div>
+              </div>
+
             </div>
         </div>
         <!-- /#page-content-wrapper -->
