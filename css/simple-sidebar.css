@@ -31,12 +31,15 @@ body {
 
 #page-content-wrapper {
   width: 100%;
+  height: 50rem;
+  padding: 10rem;
   position: absolute;
   margin-right: -250px;
   padding: 15px;
 }
 
 #row-whisky{
+  padding: 2rem;
 }
 /* Sidebar Styles */
 #row-whisky-collapse {
@@ -119,7 +122,6 @@ body {
 }
 
 .row {
-  margin-top : 100px;
 }
 li{
   padding-top:1.25em
@@ -139,7 +141,8 @@ li{
     width: 250px;
   }
   #page-content-wrapper {
-    position: relative;
+    position: absolute;
+    height: 100%;
     margin-right: 0;
   }
 
