@@ -17,8 +17,8 @@
     <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 
-    <link href="../css/simple-sidebar.css" rel="stylesheet">
     <!-- Custom styles for this template -->
+    <link href="../css/simple-sidebar.css" rel="stylesheet">
 
 
 </head>
@@ -60,117 +60,31 @@
         <!-- Page Content -->
         <div id="page-content-wrapper">
             <div class="container-fluid">
-                <h1>Board Page</h1>
-		<script>
-			$(document).ready(function(){
+	   	 <script>
+			$(document).ready(function()){
 			
-				$('#myTable').DataTable({
-					ordering : false,
-					scrollY: 400,	
-					'aoColumns' : [{sWidth: '20px'}, {sWidth: '280px'}, {sWidth: '40px'},{sWidth: '55px'}]
-				});
-				
-				var list_call = {
-					"div" : "start"
+				var call = {
+					"div" : "news",
+					"no" : "
 				};
-				
-			
 				$.ajax({
 					type:"POST",
-					data: list_call,
+					data: call,
 					url : "../php/board.php",
 					success:function(result){
 						console.log(result);
 						var json = JSON.parse(result);
-						var i = 0;
-						var string = '';
-						for(i = 0; i<json.length; i++){
-							var row = json[i];
-							var no = row['no'];
-							var title = row['title'];
-							var writer = row['writer'];
-							var mdate = row['date'];
-							string += '<tr><td>';
-							string += no;
-							string += '</td><td onClick="viewNews(';
-							string += no;
-							string += ');">';
-							string += title;
-							string += '</td><td>';
-							string += writer;
-							string += '</td><td>';
-							string += mdate.slice(0,10);
-							string += '</td></tr>';
-						}
-						$('#mTbody').html(string);
-					}
+						var row = json[0];
+						var title = row[title];
 					
+						$('#mTitle').html(title);
+					},
+					complete:function(
 				});
 			});
-		
-		function viewNews(num){
-			console.log(num);
-			var news_call = {
-				"div" : "news",
-				"no" : num
-			};
-			var title = '';
-			var writer = '';
-			var date = '';
-			var content = '';
-	
-			$.ajax({
-				type:"POST",
-				data: news_call,
-				url : "../php/board.php",
-				success:function(result){
-					console.log(result);
-					var json = JSON.parse(result);
-					var row = json[0];
-					console.log("title row[title] : "+row['title']);
-					title += '<h4 style="margin-top : 50px; margin-bottom : 50px;">';
-					title += row['title'];
-					title += '</h4>';
-					writer += '<h6>Writer : ';
-					writer += row['writer'];
-					writer += '</h6>';
-					date += '<h6>Date : ';
-					date += row['date'];
-					date += '</h6>';
-					content += '<p style="margin-top : 50px; margin-bottom : 200px;">';
-					content += row['content'];
-					content += '</p>';
-
-
-					$('#newsTitle').html(title);
-					$('#newsWriter').html(writer);
-					$('#newsDate').html(date);
-					$('#newsContent').html(content);
-
-				}
-			});
-			
-		}
 		</script>
-		<div id='news'>
-			<div id="newsTitle" align='center'></div>
-			<div id='newsWriter' align='right'></div>
-			<div id='newsDate' align='right'></div>
-			<div id='newsContent'></div>
-		</div>
-		<table id="myTable">
-			<thead>
-				<tr>
-					<th>No</th>
-					<th>title</th>
-					<th>writer</th>
-					<th>date</th>
-				</tr>
-			</thead>
-			<tbody id='mTbody'>
-			</tbody>
-		</table>
-            </div>
+		<h2 id='mTitle'></h2>
+	    </div>
         </div>
         <!-- /#page-content-wrapper -->
 
