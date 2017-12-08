@@ -51,10 +51,10 @@
                     <a href="./sellerInfo.html">Sellers</a>
                 </li>
                 <li>
-                    <a href="#">Boards</a>
+                    <a href="./board.html">Boards</a>
                 </li>
                 <li>
-                    <a href="#">Contact</a>
+                    <a href="./contact.html">Contact</a>
                 </li>
             </ul>
         </div>
@@ -88,7 +88,7 @@
                     minMaxLevel: [1, 14],
                     size: new nhn.api.map.Size(500, 400)
                     });
-                    
+
                     for(i=0; i<json.length; i++) {
                         var row = json[i];
                         var long = row['lon'];
@@ -99,7 +99,7 @@
                         });
                       //  var oPoint = new nhn.api.map.LatLng(long, lat);
                         nhn.api.map.setDefaultPoint('LatLng');
-                        
+
                     }
 
                 }
@@ -114,7 +114,7 @@
             <div class="container-fluid">
                 <h1>Sellers</h1>
             </div>
-				
+
             <div class="row" id="row-whisky">
               <div class="col-md-6">
                 테이블
