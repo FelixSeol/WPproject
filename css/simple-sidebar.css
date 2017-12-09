@@ -147,3 +147,42 @@ li{
   }
 
 }
+.grid-container{
+  width: 60%;
+  display: grid;
+  margin-top: 4rem;
+  grid-template-columns: 25rem 25rem 25rem;
+  grid-template-rows: 100%;
+  grid-gap: 1rem;
+  padding: 5rem;
+}
+.grid-vertical{
+  border: 1px solid #B2B2B2;
+  background-color: white;
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: 7.5rem 12.5rem;
+  grid-gap: 0.5rem;
+  padding: 1rem;
+}
+.grid-vertical > div{
+  font-family: 'Malgun Gothic';
+  font-size: 1.1rem;
+  vertical-align: middle;
+  text-align: left;
+  padding: 0.8rem;
+  margin: 0.01rem;
+}
+
+a.scroll:link{
+  color: green;
+  text-decoration: none;
+}
+a.scroll:visited{
+  color: green;
+  text-decoration: underline;
+}
+a.scroll:hover{
+  color: green;
+  text-decoration: underline;
+}

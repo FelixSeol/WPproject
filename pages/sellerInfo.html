@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Simple Sidebar - Start Bootstrap Template</title>
+    <title>Seller Information</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
     <!-- Bootstrap core CSS -->
@@ -60,49 +60,6 @@
         </div>
         <!-- /#sidebar-wrapper -->
 
-
-            $.ajax({
-                type:"POST",
-                data: data,
-                url : "../php/sellerDatas.php",
-                success:function(data){
-                    console.log(data);
-                    var json = JSON.parse(data);
-                    var i = 0;
-                    oMap = new nhn.api.map.Map('testMap', {
-                    point: oPoint,
-                    zoom: 10,
-                    enableWheelZoom: true,
-                    enableDragPan: true,
-                    enableDblClickZoom: false,
-                    mapMode: 0,
-                    activateTrafficMap: false,
-                    activateBicycleMap: false,
-                    minMaxLevel: [1, 14],
-                    size: new nhn.api.map.Size(500, 400)
-                    });
-
-                    for(i=0; i<json.length; i++) {
-                        var row = json[i];
-                        var long = row['lon'];
-                        var lat = row['lat'];
-                        var marker = new nhn.api.map.Marker({
-                            position : new nhn.api.map.LatLng(lat, long),
-                            map : oMap
-                        });
-                      //  var oPoint = new nhn.api.map.LatLng(long, lat);
-                        nhn.api.map.setDefaultPoint('LatLng');
-
-                    }
-
-                }
-
-
-            });
-        });
-
-    </script>
-
         <!-- Page Content -->
         <div id="page-content-wrapper">
             <div>
@@ -126,16 +83,6 @@
                         
                     </tbody>
                 </table>
-
-            <div class="row" id="row-whisky">
-              <div class="col-md-6">
-                테이블
-              </div>
-              <div class="col-md-6">
-                <div class="figure">
-                </div>
-              </div>
-
             </div>
         </div>
         <!-- /#page-content-wrapper -->
@@ -157,7 +104,7 @@
 
         });
 
-        var markerIcon = new nhn.api.map.Icon('./../src/markerIcon.png', new nhn.api.map.Size(51, 69), new nhn.api.map.Size(16, 46));
+        var markerIcon = new nhn.api.map.Icon('./../src/cocktailIcon4.png', new nhn.api.map.Size(30, 30), new nhn.api.map.Size(16, 46));
         var slider = new nhn.api.map.ZoomControl();
         var mapInfo = new nhn.api.map.InfoWindow();
         var label = new nhn.api.map.MarkerLabel();
