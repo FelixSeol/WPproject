@@ -1,6 +1,6 @@
 <?php
 
-include_once("./dbconfig.php");	
+include_once("./connect.php");	
 $div = $_POST["div"];
 if($div == "start") {
 
