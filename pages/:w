@@ -72,28 +72,9 @@
 					title = $('#modal-title').val();
 					writer = $('#modal-writer').val();
 					content = $('#modal-content').val();
-					var data = {
-						"title" : title,
-						"writer" : writer,
-						"content" : content
-					};
-					$.ajax({
-						type:"POST",
-						data: data,
-						url : "../php/write.php",
-						success:function(result){
-							if(result==0){
-								alert("작성에 성공했습니다.");
-							}else{
-								alert("작성에 실패했습니다.");
-							}
-							console.log(result);
-						},
-						complete:function(){
-							location.reload();
-						}
-					});
-
+					console.log(title);
+					console.log(writer);
+					console.log(content);
 				});
 				var list_call = {
 					"div" : "start"
@@ -107,8 +88,9 @@
 					success:function(result){
 						console.log(result);
 						var json = JSON.parse(result);
+						var i = 0;
 						var string = '';
-						for(i = json.length-1; i>=0; i--){
+						for(i = 0; i<json.length; i++){
 							var row = json[i];
 							var no = row['no'];
 							var title = row['title'];
