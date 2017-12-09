@@ -64,11 +64,6 @@
 		<script>
 			$(document).ready(function(){
 			
-				$('#myTable').DataTable({
-					ordering : false,
-					scrollY: 400,	
-					'aoColumns' : [{sWidth: '20px'}, {sWidth: '280px'}, {sWidth: '40px'},{sWidth: '55px'}]
-				});
 				
 				var list_call = {
 					"div" : "start"
@@ -103,6 +98,11 @@
 							string += '</td></tr>';
 						}
 						$('#mTbody').html(string);
+						$('#myTable').DataTable({
+							ordering : false,
+							scrollY: 400,	
+							'aoColumns' : [{sWidth: '20px'}, {sWidth: '280px'}, {sWidth: '40px'},{sWidth: '55px'}]
+						});
 					}
 					
 				});
