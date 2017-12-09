@@ -6,7 +6,7 @@ $title = $_POST["title"];
 $writer = $_POST["writer"];
 $content = $_POST["content"];
 
-$query = "INSERT INTO board VALUES('', '".$title."','".$content."','".$writer."',now());";
+$query = "INSERT INTO board (title, content, writer, date) VALUES('".$title."','".$content."','".$writer."',now());";
 
 $result = $conn->query($query);
 
